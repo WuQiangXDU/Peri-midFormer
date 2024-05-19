@@ -17,7 +17,7 @@ You can download processed datasets at <>
 
 ## Usage
 
-Install Python 3.8. For convenience, execute the following command.
+[1]. Install Python 3.8. For convenience, execute the following command.
 
 ````
 pip install -r requirements.txt
