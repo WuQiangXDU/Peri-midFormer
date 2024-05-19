@@ -1,19 +1,8 @@
 # Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis
 
-# TLCE
-# Temporal Local Correntropy Representation for Fault Diagnosis of Machines
-This repository is the implementation of our paper: 'Temporal Local Correntropy Representation for Fault Diagnosis of Machines', which has been published on IEEE TII. It is available at <https://ieeexplore.ieee.org/document/10061348>.
-
-Abstract— In view of the good correlation measurement ability of correntropy, we propose a temporal local correntropy representation (TLCE) method based on the local correntropy matrix for fault diagnosis of machines. In TLCE, a sample is divided into several segments, and then the correlation between these segments is expressed by correntropy. Finally, the correntropy matrix composed of the correntropy is regarded as the feature of each sample. The proposed TLCE model is validated by experiments of three bearing datasets and one gear dataset. And results demonstrate that compared with other methods, TLCE has obvious advantages, such as effectiveness and robustness.
-
-
 ## Platform
 
 - PyTorch and NVIDIA 4090 24GB GPU
-
-## Datasets
-
-You can download processed datasets at <>
 
 ## Usage
 
@@ -22,22 +11,19 @@ You can download processed datasets at <>
 ````
 pip install -r requirements.txt
 ````
-2. Prepare Data. You can obtain the well pre-processed datasets from [Google Drive](https://drive.google.com/drive/folders/13Cg1KYOlzM5C7K8gK8NfC-F3EYxkM3D2) or [Baidu Drive], Then place the downloaded data in the folder./dataset. Here is a summary of supported datasets.
 
-## Citation
+2. Prepare Data. You can obtain the well pre-processed datasets from [Google Drive](https://drive.google.com/drive/folders/13Cg1KYOlzM5C7K8gK8NfC-F3EYxkM3D2) or [Baidu Drive](https://pan.baidu.com/s/1r3KhGd0Q9PJIUZdfEYoymg?pwd=i9iy), Then place the downloaded data in the folder./dataset.
 
-If you find this work helpful, please cite our paper:
-
-
- @ARTICLE{10061348,
-  author={Feng, Zhixi and Wu, Qiang and Yang, Shuyuan},
-  journal={IEEE Transactions on Industrial Informatics}, 
-  title={Temporal Local Correntropy Representation for Fault Diagnosis of Machines}, 
-  year={2023},
-  volume={},
-  number={},
-  pages={1-9},
-  doi={10.1109/TII.2023.3253180}}
-
-     
- Thanks for your attention!
+3. Train and evaluate model. We provide the experiment scripts for all benchmarks under the folder ./scripts/. You can reproduce the experiment results as the following examples:
+````
+# long-term forecast
+bash ./scripts/long_term_forecast/ETT_script/TimesNet_ETTh1.sh
+# short-term forecast
+bash ./scripts/short_term_forecast/TimesNet_M4.sh
+# imputation
+bash ./scripts/imputation/ETT_script/TimesNet_ETTh1.sh
+# anomaly detection
+bash ./scripts/anomaly_detection/PSM/TimesNet.sh
+# classification
+bash ./scripts/classification/TimesNet.sh
+````
