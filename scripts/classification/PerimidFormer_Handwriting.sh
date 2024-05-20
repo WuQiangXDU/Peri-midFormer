@@ -1,0 +1,18 @@
+python run.py \
+  --task_name classification \
+  --is_training 1 \
+  --root_path dataset/Handwriting/ \
+  --model_id Handwriting \
+  --model PerimidFormer \
+  --data UEA \
+  --layers 1 \
+  --batch_size 32 \
+  --d_model 32 \
+  --top_k 4 \
+  --des 'Exp' \
+  --itr 3 \
+  --learning_rate 0.005 \
+  --train_epochs 20 \
+  --patience 5 \
+  --n_heads 8 \
+  --chan_in 3

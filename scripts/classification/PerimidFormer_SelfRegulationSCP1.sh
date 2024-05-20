@@ -1,0 +1,17 @@
+python -u run.py \
+  --task_name classification \
+  --is_training 1 \
+  --root_path dataset/SelfRegulationSCP1/ \
+  --model_id SelfRegulationSCP1 \
+  --model PerimidFormer \
+  --data UEA \
+  --layers 1 \
+  --batch_size 64 \
+  --d_model 128 \
+  --top_k 3 \
+  --des 'Exp' \
+  --itr 3 \
+  --learning_rate 0.0005 \
+  --train_epochs 20 \
+  --patience 5 \
+  --chan_in 6

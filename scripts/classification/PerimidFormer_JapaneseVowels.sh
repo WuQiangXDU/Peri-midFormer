@@ -1,0 +1,17 @@
+python -u run.py \
+  --task_name classification \
+  --is_training 1 \
+  --root_path dataset/JapaneseVowels/ \
+  --model_id JapaneseVowels \
+  --model PerimidFormer \
+  --data UEA \
+  --layers 3 \
+  --batch_size 8 \
+  --d_model 128 \
+  --top_k 4 \
+  --des 'Exp' \
+  --itr 3 \
+  --learning_rate 0.0001 \
+  --train_epochs 20 \
+  --patience 5 \
+  --chan_in 12

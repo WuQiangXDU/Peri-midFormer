@@ -1,0 +1,97 @@
+model_name=PerimidFormer
+
+python -u run.py \
+  --task_name imputation \
+  --is_training 1 \
+  --root_path dataset/ETT-small/ \
+  --data_path ETTh2.csv \
+  --model_id ETTh2_mask_0.125 \
+  --mask_rate 0.125 \
+  --model $model_name \
+  --data ETTh2 \
+  --seq_len 96 \
+  --label_len 0 \
+  --pred_len 0 \
+  --layers 1 \
+  --chan_in 7 \
+  --batch_size 4 \
+  --d_model 64 \
+  --des 'Exp' \
+  --itr 3 \
+  --train_epochs 15 \
+  --patience 3 \
+  --top_k 2 \
+  --learning_rate 0.002 \
+  --dropout 0
+
+python -u run.py \
+  --task_name imputation \
+  --is_training 1 \
+  --root_path dataset/ETT-small/ \
+  --data_path ETTh2.csv \
+  --model_id ETTh2_mask_0.25 \
+  --mask_rate 0.25 \
+  --model $model_name \
+  --data ETTh2 \
+  --seq_len 96 \
+  --label_len 0 \
+  --pred_len 0 \
+  --layers 1 \
+  --chan_in 7 \
+  --batch_size 4 \
+  --d_model 64 \
+  --des 'Exp' \
+  --itr 3 \
+  --train_epochs 15 \
+  --patience 3 \
+  --top_k 2 \
+  --learning_rate 0.002 \
+  --dropout 0
+
+python -u run.py \
+  --task_name imputation \
+  --is_training 1 \
+  --root_path dataset/ETT-small/ \
+  --data_path ETTh2.csv \
+  --model_id ETTh2_mask_0.375 \
+  --mask_rate 0.375 \
+  --model $model_name \
+  --data ETTh2 \
+  --seq_len 96 \
+  --label_len 0 \
+  --pred_len 0 \
+  --layers 2 \
+  --chan_in 7 \
+  --batch_size 4 \
+  --d_model 64 \
+  --des 'Exp' \
+  --itr 3 \
+  --train_epochs 15 \
+  --patience 3 \
+  --top_k 2 \
+  --learning_rate 0.002 \
+  --dropout 0
+
+python -u run.py \
+  --task_name imputation \
+  --is_training 1 \
+  --root_path dataset/ETT-small/ \
+  --data_path ETTh2.csv \
+  --model_id ETTh2_mask_0.5 \
+  --mask_rate 0.5 \
+  --model $model_name \
+  --data ETTh2 \
+  --seq_len 96 \
+  --label_len 0 \
+  --pred_len 0 \
+  --layers 2 \
+  --chan_in 7 \
+  --batch_size 4 \
+  --d_model 64 \
+  --des 'Exp' \
+  --itr 3 \
+  --train_epochs 15 \
+  --patience 3 \
+  --top_k 2 \
+  --learning_rate 0.002 \
+  --dropout 0
