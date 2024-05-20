@@ -2,7 +2,7 @@
 
 ## Platform
 
-- NVIDIA 4090 24GB GPU and PyTorch
+- NVIDIA 4090 24GB GPU, PyTorch
 
 ## Usage
 
@@ -17,13 +17,13 @@ pip install -r requirements.txt
 3. Train and evaluate model. We provide the experiment scripts for all benchmarks under the folder ````./scripts/.```` You can reproduce the experiment results as the following examples:
 ````
 # long-term forecast
-bash ./scripts/long_term_forecast/ETT_script/PerimidFormer_ETTh1.sh
+bash ./scripts/long_term_forecast/ETT_script/PerimidFormer_ETTh2.sh
 # short-term forecast
 bash ./scripts/short_term_forecast/PerimidFormer_M4.sh
 # imputation
-bash ./scripts/imputation/ETT_script/PerimidFormer_ETTh1.sh
+bash ./scripts/imputation/ECL_script/PerimidFormer.sh
 # anomaly detection
-bash ./scripts/anomaly_detection/PSM/PerimidFormer.sh
+bash ./scripts/anomaly_detection/SMD/PerimidFormer.sh
 # classification
 bash ./scripts/classification/PerimidFormer_EthanolConcentration.sh
 ````
