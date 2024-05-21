@@ -10,9 +10,9 @@ python -u run.py \
   --d_model 32 \
   --layers 1 \
   --chan_in 51 \
-  --top_k 2 \
+  --top_k 3 \
   --anomaly_ratio 1 \
   --batch_size 8 \
   --train_epochs 1 \
   --itr 3 \
-  --learning_rate 0.0001
+  --learning_rate 0.0005

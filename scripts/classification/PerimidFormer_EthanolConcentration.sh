@@ -11,7 +11,7 @@ python -u run.py \
   --top_k 8 \
   --des 'Exp' \
   --itr 3 \
-  --learning_rate 0.001 \
+  --learning_rate 0.005 \
   --train_epochs 20 \
   --patience 5 \
   --chan_in 3

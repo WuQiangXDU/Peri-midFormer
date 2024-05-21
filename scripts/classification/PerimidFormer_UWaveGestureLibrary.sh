@@ -5,7 +5,7 @@ python -u run.py \
   --model_id UWaveGestureLibrary \
   --model PerimidFormer \
   --data UEA \
-  --layers 3 \
+  --layers 5 \
   --batch_size 16 \
   --d_model 64 \
   --top_k 7 \

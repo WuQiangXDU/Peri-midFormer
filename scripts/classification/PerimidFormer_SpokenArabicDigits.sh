@@ -7,7 +7,7 @@ python -u run.py \
   --data UEA \
   --layers 2 \
   --batch_size 2 \
-  --d_model 64 \
+  --d_model 128 \
   --top_k 2 \
   --des 'Exp' \
   --itr 3 \

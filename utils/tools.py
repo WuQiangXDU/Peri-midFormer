@@ -90,8 +90,8 @@ def visual(task_name, pd_start, pd_end, true, preds=None, name='./pic/test.pdf')
 
     elif task_name == 'imputation':
         plt.figure()
-        plt.plot(preds, label='Prediction', color='C1', linewidth=2) # 先画插补的
-        plt.plot(true, label='GroundTruth', color='C0', linewidth=2)  # 后画真实值，改了颜色
+        plt.plot(preds, label='Prediction', color='C1', linewidth=2)
+        plt.plot(true, label='GroundTruth', color='C0', linewidth=2)
         plt.legend()
         # plt.show()
         plt.savefig(name, bbox_inches='tight')

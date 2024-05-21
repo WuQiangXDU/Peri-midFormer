@@ -7,11 +7,11 @@ python -u run.py \
   --data UEA \
   --layers 1 \
   --batch_size 64 \
-  --d_model 128 \
+  --d_model 64 \
   --top_k 3 \
   --des 'Exp' \
   --itr 3 \
-  --learning_rate 0.0005 \
+  --learning_rate 0.001 \
   --train_epochs 20 \
   --patience 5 \
   --chan_in 6
