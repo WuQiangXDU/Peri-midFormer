@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.fft
-from layers.Embed import DataEmbedding_class, PositionEmbedding, TemporalEmbedding
+from layers.Embed import PositionEmbedding, TemporalEmbedding
 from layers.PerimidFormer_EncDec import Encoder
 import numpy as np
 from utils.tools import series_decomp
@@ -101,7 +101,6 @@ class Model(nn.Module):
         self.feature_flows_dim = configs.feature_flows_dim
         self.peri_midformer = Encoder(configs)
         self.position_embedding = PositionEmbedding(configs)
-        self.enc_embedding_class = DataEmbedding_class(configs)
         self.temporal_embedding = TemporalEmbedding(configs)
         self.layer = configs.layers
         self.decompsition = series_decomp(configs.moving_avg)

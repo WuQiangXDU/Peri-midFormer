@@ -85,12 +85,6 @@ def mask_and_indexes(components_per_level):
 
     indexes = np.array(indexes)
 
-    rows, cols = mask_metric.shape
-    for i in range(rows):
-        for j in range(cols):
-            if i < j:
-                mask_metric[i, j] = 0
-
     mask_metric = torch.tensor(mask_metric)
     indexes = torch.tensor(indexes)
     mask_metric = (1 - mask_metric).bool()

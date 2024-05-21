@@ -1,7 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from torch.nn.utils import weight_norm
 import math
 
 
@@ -30,50 +28,11 @@ class PositionalEmbedding(nn.Module):
         return self.pe[:, :x.size(1)]
 
 
-# class PositionalEmbedding(nn.Module):
-#     def __init__(self, d_model, max_len=5000):
-#         super(PositionalEmbedding, self).__init__()
-#         # Compute the positional encodings once in log space.
-#         pe = torch.zeros(max_len, d_model).float()
-#         pe.requires_grad = False
-#
-#         position = torch.arange(0, max_len).float().unsqueeze(1)
-#         div_term = (torch.arange(0, d_model).float()
-#                     * -(math.log(10000.0) / d_model)).exp()
-#
-#         pe[:, :] = torch.sin(position * div_term)
-#
-#         # For odd d_model, fill the last dimension with cos values
-#         if d_model % 2 != 0:
-#             pe[:, -1] = torch.cos(position.squeeze() * div_term[-1])
-#
-#         pe = pe.unsqueeze(0)
-#         self.register_buffer('pe', pe)
-#
-#     def forward(self, x):
-#         return self.pe[:, :x.size(1)]
-
-
 class TokenEmbedding(nn.Module):
     def __init__(self, c_in, d_model):
         super(TokenEmbedding, self).__init__()
         padding = 1 if torch.__version__ >= '1.5.0' else 2
         self.tokenConv = nn.Conv1d(in_channels=c_in, out_channels=d_model,
-                                   kernel_size=3, padding=padding, padding_mode='circular', bias=False)
-        for m in self.modules():
-            if isinstance(m, nn.Conv1d):
-                nn.init.kaiming_normal_(
-                    m.weight, mode='fan_in', nonlinearity='leaky_relu')
-
-    def forward(self, x):
-        x = self.tokenConv(x.permute(0, 2, 1)).transpose(1, 2)
-        return x
-
-class TokenEmbedding_2(nn.Module):
-    def __init__(self, seq_len, d_model):
-        super(TokenEmbedding_2, self).__init__()
-        padding = 1 if torch.__version__ >= '1.5.0' else 2
-        self.tokenConv = nn.Conv1d(in_channels=seq_len, out_channels=d_model,
                                    kernel_size=3, padding=padding, padding_mode='circular', bias=False)
         for m in self.modules():
             if isinstance(m, nn.Conv1d):
@@ -148,34 +107,6 @@ class TimeFeatureEmbedding(nn.Module):
     def forward(self, x):
         return self.embed(x)
 
-
-class DataEmbedding(nn.Module):
-    def __init__(self, pred_len, c_in, d_model, embed_type='fixed', freq='h', dropout=0.1):
-        super(DataEmbedding, self).__init__()
-        # d_model = 32
-
-        # self.value_embedding = TokenEmbedding(c_in=c_in, d_model=d_model)
-        self.value_embedding = nn.Linear(c_in, d_model, bias=False)
-        self.position_embedding = PositionalEmbedding(d_model=c_in)
-        self.temporal_embedding = TemporalEmbedding(d_model=c_in, embed_type=embed_type,
-                                                    freq=freq) if embed_type != 'timeF' else TimeFeatureEmbedding(
-            d_model=c_in, embed_type=embed_type, freq=freq)
-        self.dropout = nn.Dropout(p=dropout)
-
-    def forward(self, x, x_mark):
-
-        # x = x.permute(0, 3, 1, 2)
-        # n_vars = x.shape[1]
-        # x = torch.reshape(x, (x.shape[0] * x.shape[1], x.shape[2], x.shape[3]))
-
-        if x_mark is None:
-            x = x + self.position_embedding(x)
-        else:
-            x = x + self.temporal_embedding(x_mark) + self.position_embedding(x)
-
-        # x = x + self.temporal_embedding(x_mark) + self.position_embedding(x)
-        return self.dropout(x)
-
 class PositionEmbedding(nn.Module):
     def __init__(self, configs):
         super(PositionEmbedding, self).__init__()
@@ -214,91 +145,3 @@ class TemporalEmbedding(nn.Module):
         x = x + self.temporal_embedding(x_mark)
 
         return x
-
-
-class DataEmbedding_class(nn.Module):
-    def __init__(self, configs):
-        super(DataEmbedding_class, self).__init__()
-
-        # self.value_embedding = TokenEmbedding(c_in=configs.d_model, d_model=configs.d_model)  # (c_in=c_in, d_model=d_model)
-        self.position_embedding = PositionalEmbedding(d_model=configs.chan_in)
-        self.dropout = nn.Dropout(p=configs.dropout)
-
-    def forward(self, x):
-        even_channels = True
-        # 如果最后一维大小是奇数，则在最后一维添加一个零通道
-        if x.shape[-1] % 2 != 0:
-            zero_channel = torch.zeros(x.shape[0], x.shape[1], x.shape[2], 1).to(x.device)
-            x = torch.cat([x, zero_channel], dim=-1)
-            even_channels = False
-
-        num_seg = x.shape[1]
-        x = torch.reshape(x, (x.shape[0] * x.shape[1], x.shape[2], x.shape[3]))
-        x = x + self.position_embedding(x)
-        x = torch.reshape(x, (-1, num_seg, x.shape[1], x.shape[2]))
-
-        if not even_channels:
-            x = x[..., :-1]
-
-        return self.dropout(x)
-
-
-class DataEmbedding_anom(nn.Module):
-    def __init__(self, c_in, d_model, embed_type='fixed', freq='h', dropout=0.1):
-        super(DataEmbedding_anom, self).__init__()
-
-        self.value_embedding = TokenEmbedding(c_in=c_in, d_model=c_in)  # (c_in=c_in, d_model=d_model)
-        self.position_embedding = PositionalEmbedding(d_model=d_model)
-        self.dropout = nn.Dropout(p=dropout)
-
-    def forward(self, x, x_mark):
-        x = self.value_embedding(x) + self.position_embedding(x)
-
-        return self.dropout(x)
-
-
-class DataEmbedding_wo_pos(nn.Module):
-    def __init__(self, c_in, d_model, embed_type='fixed', freq='h', dropout=0.1):
-        super(DataEmbedding_wo_pos, self).__init__()
-
-        self.value_embedding = TokenEmbedding(c_in=c_in, d_model=d_model)
-        self.position_embedding = PositionalEmbedding(d_model=d_model)
-        self.temporal_embedding = TemporalEmbedding(d_model=d_model, embed_type=embed_type,
-                                                    freq=freq) if embed_type != 'timeF' else TimeFeatureEmbedding(
-            d_model=d_model, embed_type=embed_type, freq=freq)
-        self.dropout = nn.Dropout(p=dropout)
-
-    def forward(self, x, x_mark):
-        if x_mark is None:
-            x = self.value_embedding(x)
-        else:
-            x = self.value_embedding(x) + self.temporal_embedding(x_mark)
-        return self.dropout(x)
-
-
-class PatchEmbedding(nn.Module):
-    def __init__(self, d_model, patch_len, stride, padding, dropout):
-        super(PatchEmbedding, self).__init__()
-        # Patching
-        self.patch_len = patch_len
-        self.stride = stride
-        self.padding_patch_layer = nn.ReplicationPad1d((0, padding))
-
-        # Backbone, Input encoding: projection of feature vectors onto a d-dim vector space
-        self.value_embedding = nn.Linear(patch_len, d_model, bias=False)
-
-        # Positional embedding
-        self.position_embedding = PositionalEmbedding(d_model)
-
-        # Residual dropout
-        self.dropout = nn.Dropout(dropout)
-
-    def forward(self, x):
-        # do patching
-        n_vars = x.shape[1]
-        x = self.padding_patch_layer(x)
-        x = x.unfold(dimension=-1, size=self.patch_len, step=self.stride)
-        x = torch.reshape(x, (x.shape[0] * x.shape[1], x.shape[2], x.shape[3]))
-        # Input encoding
-        x = self.value_embedding(x) + self.position_embedding(x)
-        return self.dropout(x), n_vars
