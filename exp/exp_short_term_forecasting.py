@@ -248,29 +248,12 @@ class Exp_Short_Term_Forecast(Exp_Basic):
             print('mase:', mase)
             print('owa:', owa_results)
 
-            ##########################################################  # 后加，为了将结果写入xt
             f = open(os.path.join(folder_path, "result_short_forecasting.txt"), 'a+')
             f.write(setting + "  \n")
             f.write('smape:{} \nmape:{} \nmase:{} \nowa:{} \n'.format(smape_results, mape, mase, owa_results))
 
-            # #############
-            # f.seek(0)
-            # lines = f.readlines()
-            # smape_s = [float(re.search(r'smape:(\d+\.\d+)', line).group(1)) for line in lines if 'smape:' in line]
-            # mape_s = [float(re.search(r'mape:(\d+\.\d+)', line).group(1)) for line in lines if 'mape:' in line]
-            # mase_s = [float(re.search(r'mase:(\d+\.\d+)', line).group(1)) for line in lines if 'mase:' in line]
-            # owa_s = [float(re.search(r'owa:(\d+\.\d+)', line).group(1)) for line in lines if 'owa:' in line]
-            # average_smape = sum(smape_s) / len(smape_s)
-            # average_mape = sum(mape_s) / len(mape_s)
-            # average_mase = sum(mase_s) / len(mase_s)
-            # average_owa = sum(owa_s) / len(owa_s)
-            # # f.write(f'Average Mse: {average_mse}')
-            # f.write('Average smape:{} , Average mape:{} , Average mase:{} , Average owa:{} \n'.format(average_smape, average_mape, average_mase, average_owa))
-            # #############
-
             f.write('\n')
             f.close()
-            ############################################################
 
             return [smape_results, mape, mase, owa_results]
 
