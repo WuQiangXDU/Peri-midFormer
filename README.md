@@ -1,4 +1,6 @@
-# Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis
+# Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis (NeurIPS 2024 Spotlight)
+
+Qiang Wu, Gechang Yao, Zhixi Feng and Shuyuan Yang, "Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis", NeurIPS, 2024.
 
 ## Platform
 
