@@ -40,6 +40,6 @@ bash ./scripts/classification/PerimidFormer_EthanolConcentration.sh
 ````
 
 ## Acknowledgement
-We appreciate the following github repos a lot for their valuable code base:
+We greatly appreciate the following GitHub repositories for their valuable code:
 
 - https://github.com/thuml/Time-Series-Library
