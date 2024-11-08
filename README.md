@@ -1,6 +1,6 @@
 # Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis (NeurIPS 2024 Spotlight)
 
-Qiang Wu, Gechang Yao, Zhixi Feng and Shuyuan Yang, "Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis", NeurIPS, 2024.
+Qiang Wu, Gechang Yao, Zhixi Feng and Shuyuan Yang, "[Peri-midFormer: Periodic Pyramid Transformer for Time Series Analysis](https://arxiv.org/pdf/2411.04554)", NeurIPS, 2024.
 
 ## Abstract
 
