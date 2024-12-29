@@ -38,7 +38,6 @@ python -u run.py \
  --layers 2 \
  --chan_in 21 \
  --d_model 256 \
- --d_model 32 \
  --top_k 2 \
  --des 'Exp' \
  --itr 3 \
@@ -62,7 +61,6 @@ python -u run.py \
  --layers 1 \
  --chan_in 21 \
  --d_model 512 \
- --d_model 32 \
  --top_k 2 \
  --des 'Exp' \
  --itr 3 \
@@ -85,7 +83,6 @@ python -u run.py \
  --layers 1 \
  --chan_in 21 \
  --d_model 768 \
- --d_model 32 \
  --top_k 2 \
  --des 'Exp' \
  --itr 3 \
